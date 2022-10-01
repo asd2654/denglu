@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.SHA256.SHA256Util;
 import com.example.demo.entity.UserBean;
 import com.example.demo.md5.MD5util;
 import com.example.demo.service.UserService;
@@ -20,38 +21,32 @@ public class LoginController {
     @Resource
     UserService userService;
 
-    public LoginController() throws NoSuchAlgorithmException {
-    }
+    @Resource
+    private SHA256Util sha256Util;
 
     //实现登录
     @RequestMapping("/login")
-    public String show() {
+    public String show(){
         return "login";
     }
-
     @RequestMapping(value = "/loginIn",method = RequestMethod.POST)
     public String login(String username,String password){
 
-        //用用户名生成盐值
-        int numbSalt = username.hashCode();
+        String SHA256PassWord = sha256Util.getSecurePassword(password);
 
-        String salt = String.valueOf(numbSalt);
 
-        //加盐
-        String newPassWord = salt + password;
+        UserBean userBean = userService.LoginIn(username, SHA256PassWord);
 
-        //得出密文
-        String md5PassWord = MD5util.getMD5(newPassWord);
-
-        UserBean userBean = userService.LoginIn(username, md5PassWord);
         System.out.println(username);
-        System.out.println(md5PassWord+"=======");
+        System.out.println(SHA256PassWord);
+
         if(userBean!=null){
             return "redirect:/index.html";
         }else {
             return "error";
         }
     }
+
 
 
     @RequestMapping("/index.html")
@@ -71,22 +66,12 @@ public class LoginController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String signUp(String username,String password){
 
-        //用用户名生成盐值
-        int numbSalt = username.hashCode();
 
-        String salt = String.valueOf(numbSalt);
+        String SHA256PassWord = sha256Util.getSecurePassword(password);
 
-        //加盐
-        String newPassWord = salt + password;
-
-        //得出密文
-        String md5PassWord = MD5util.getMD5(newPassWord);
-
-        userService.Insert(username, md5PassWord);
+        userService.Insert(username, SHA256PassWord);
 
         return "success";
-
-
 
     }
 
