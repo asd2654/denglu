@@ -12,9 +12,9 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
-    public UserBean LoginIn(String username, String password) {
-        return userMapper.getInfo(username,password);
-    }
+    public String LoginInn(String username) {return userMapper.geta(username);}
+
+    public String LoginInw(String username){return userMapper.getw(username);}
 
     public void Insert(String username,String password){
         userMapper.saveInfo(username, password);

@@ -21,8 +21,7 @@ public class LoginController {
     @Resource
     UserService userService;
 
-    @Resource
-    private SHA256Util sha256Util;
+
 
     //实现登录
     @RequestMapping("/login")
@@ -30,24 +29,27 @@ public class LoginController {
         return "login";
     }
     @RequestMapping(value = "/loginIn",method = RequestMethod.POST)
-    public String login(String username,String password){
-
-        String SHA256PassWord = sha256Util.getSecurePassword(password);
-
-
-        UserBean userBean = userService.LoginIn(username, SHA256PassWord);
-
+    public String login(String username,String password) {
         System.out.println(username);
-        System.out.println(SHA256PassWord);
+        System.out.println(password);
 
-        if(userBean!=null){
-            return "redirect:/index.html";
-        }else {
+        String user = userService.LoginInn(username);
+        System.out.println(user);
+
+
+        if (user != null) {
+            String SHA256PassWord = SHA256Util.getSecurePassword(password);
+            String password1 = userService.LoginInw(username);
+            System.out.println(SHA256PassWord);
+            System.out.println(password1);
+            if (SHA256PassWord.equals(password1)) {
+                return "redirect:/index.html";
+            } else return "error";
+
+        } else {
             return "error";
         }
     }
-
-
 
     @RequestMapping("/index.html")
     public String mainPage() {
@@ -67,7 +69,7 @@ public class LoginController {
     public String signUp(String username,String password){
 
 
-        String SHA256PassWord = sha256Util.getSecurePassword(password);
+        String SHA256PassWord = SHA256Util.getSecurePassword(password);
 
         userService.Insert(username, SHA256PassWord);
 

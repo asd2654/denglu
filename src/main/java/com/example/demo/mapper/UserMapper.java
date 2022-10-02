@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM user WHERE username = #{username} AND password = #{password}")
-    UserBean getInfo(@Param("username") String username, @Param("password") String password);
+    @Select("SELECT username FROM user where username =#{username} ")
+    String geta(@Param("username") String username);
 
+    @Select("select password from user where username=#{username}")
+    String getw(@Param("username") String username);
 
 
     @Insert("insert into user(username,password)values(#{username},#{password})")
