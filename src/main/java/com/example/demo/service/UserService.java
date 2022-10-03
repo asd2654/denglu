@@ -18,6 +18,8 @@ public class UserService {
 
     public String LoginIne(String username){return userMapper.gete(username);}
 
+    public String LoginInp(String username){return userMapper.getp(username);}
+
     public void Insert(String username,String password,String email){
         userMapper.saveInfo(username, password,email);
     }

@@ -22,6 +22,9 @@ public interface UserMapper {
     @Select("select password from user where username=#{username}")
     String getw(@Param("username") String username);
 
+    @Select("select password from user where email=#{username}")
+    String getp(@Param("username") String username);
+
 
     @Insert("insert into user(username,password,email)values(#{username},#{password},#{email})")
     void saveInfo(@Param("username") String username, @Param("password") String password,@Param("email") String email);

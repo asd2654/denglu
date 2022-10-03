@@ -37,6 +37,7 @@ public class LoginController {
         String user = userService.LoginInn(username);
         String user1 = userService.LoginIne(username);
         System.out.println(user);
+        System.out.println(user1);
 
 
         if (user != null) {
@@ -50,7 +51,7 @@ public class LoginController {
 
         } else if (user1 != null) {
             String SHA256PassWord = SHA256Util.getSecurePassword(password);
-            String password1 = userService.LoginInw(username);
+            String password1 = userService.LoginInp(username);
             System.out.println(SHA256PassWord);
             System.out.println(password1);
             if (SHA256PassWord.equals(password1)) {
