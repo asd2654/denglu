@@ -6,3 +6,15 @@ spring:
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/demo
+  mail:
+    host: smtp.qq.com
+    username: 2654561092@qq.com
+    password: gyqbacswhvdldiib
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSockerFactory
+        debug: true
+
+

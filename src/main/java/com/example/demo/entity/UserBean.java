@@ -4,24 +4,13 @@ public class UserBean  {
     private Integer id;
     private String username;
     private String password;
-    private String hash;
-    private String salt;
-
-
-    public String getHash() {
-        return hash;
+    private String email;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getId() {

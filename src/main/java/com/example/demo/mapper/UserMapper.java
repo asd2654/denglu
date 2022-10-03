@@ -16,12 +16,15 @@ public interface UserMapper {
     @Select("SELECT username FROM user where username =#{username} ")
     String geta(@Param("username") String username);
 
+    @Select("select username from user where email=#{username}")
+    String gete(@Param("username") String username);
+
     @Select("select password from user where username=#{username}")
     String getw(@Param("username") String username);
 
 
-    @Insert("insert into user(username,password)values(#{username},#{password})")
-    void saveInfo(@Param("username") String username, @Param("password") String password);
+    @Insert("insert into user(username,password,email)values(#{username},#{password},#{email})")
+    void saveInfo(@Param("username") String username, @Param("password") String password,@Param("email") String email);
 }
 
 
